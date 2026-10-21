@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>30 Hari Afirmasi Diri (Bilingual)</title>
+
+<!-- Pengaturan PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#101512">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<!-- Mengimpor Google Fonts untuk Tulisan Tangan -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Dancing+Script:wght@400..700&family=Indie+Flower&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root { color-scheme:dark; --bg:#101512; --card:#1a221d; --ink:#edf5ee; --muted:#a6b5aa; --accent:#67c58a; --line:#35453a; --soft:#24372b; --button:#202b24; --shadow:#00000030; }
+  :root[data-theme="light"] { color-scheme:light; --bg:#f3f6f2; --card:#ffffff; --ink:#203127; --muted:#647368; --accent:#2f6b4f; --line:#dce6dd; --soft:#eaf2eb; --button:#ffffff; --shadow:#1d39200a; }
+  * { box-sizing:border-box; }
+  
+  body, .card, .btn, .day, header, section { transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease; }
+  
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
+  .wrap { max-width:850px; margin:0 auto; padding:24px 16px 48px; }
+  header { text-align:center; padding:20px 0 18px; }
+  h1 { font-size:clamp(1.8rem,5vw,2.6rem); line-height:1.15; margin:0 0 10px; }
+  .sub { color:var(--muted); max-width:620px; margin:0 auto; }
+  .topbar { display:flex; justify-content:flex-end; margin:0 0 12px; }
+  .theme-toggle { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); background:var(--button); color:var(--ink); border-radius:999px; padding:9px 14px; cursor:pointer; font:inherit; font-size:.92rem; font-weight:650; }
+  .theme-toggle:hover { border-color:var(--accent); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:22px; box-shadow:0 8px 28px var(--shadow); }
+  .progress-row { display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:10px; font-weight:650; }
+  progress { width:100%; height:9px; accent-color:var(--accent); }
+  .days { display:flex; gap:8px; margin:20px 0; padding:4px 2px 12px; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch; scrollbar-width:thin; scrollbar-color:var(--accent) var(--button); }
+  .day { flex:0 0 46px; min-width:46px; scroll-snap-align:start; }
+  .day { border:1px solid var(--line); background:var(--button); border-radius:10px; padding:9px 0; cursor:pointer; font:inherit; font-weight:650; }
+  .day:hover { border-color:var(--accent); }
+  .day.active { background:var(--accent); color:#102016; border-color:var(--accent); }
+  .day.done:not(.active) { background:var(--soft); color:var(--accent); border-color:var(--accent); }
+  
+  .flex-between { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom: 8px;}
+  .eyebrow { color:var(--accent); letter-spacing:.12em; font-weight:750; font-size:.78rem; }
+  
+  .font-controls { display:flex; align-items:center; gap:8px; }
+  .font-controls select { padding: 6px 10px; border-radius: 8px; background: var(--button); color: var(--ink); border: 1px solid var(--line); font-family: inherit; font-size: 0.85rem; outline: none; cursor:pointer;}
+  .font-controls select:focus { border-color: var(--accent); }
+
+  h2 { margin:4px 0 6px; font-size:clamp(1.35rem,4vw,1.8rem); line-height:1.25; }
+  h3.en-text { font-size:clamp(1rem,3vw,1.2rem); font-weight:normal; margin: 0 0 16px; }
+  
+  .en-text { color: var(--muted); font-style: italic; }
+  
+  /* Kelas untuk Pilihan Font */
+  #affirmation, #affirmationEn { white-space:pre-line; transition: font-size 0.3s, font-family 0.3s; }
+  #affirmationEn { margin-top: 12px; margin-bottom: 16px; border-top: 1px dashed var(--line); padding-top: 14px; }
+  #actionEn { display: block; margin-top: 6px; }
+
+  .font-default { font-family: system-ui,-apple-system,sans-serif; font-size: 1.12rem; }
+  .font-caveat { font-family: 'Caveat', cursive; font-size: 1.8rem; line-height:1.4; }
+  .font-dancing { font-family: 'Dancing Script', cursive; font-size: 1.7rem; line-height:1.4; }
+  .font-kalam { font-family: 'Kalam', cursive; font-size: 1.4rem; }
+  .font-indie { font-family: 'Indie Flower', cursive; font-size: 1.4rem; }
+
+  .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+  .btn { border:1px solid var(--line); border-radius:12px; padding:11px 15px; cursor:pointer; font:inherit; font-weight:650; background:var(--button); color:var(--ink); display:inline-flex; align-items:center; gap:6px;}
+  .btn.primary { background:var(--accent); color:#102016; border-color:var(--accent); }
+  .btn:disabled { opacity:.4; cursor:not-allowed; }
+  .nav { display:flex; justify-content:space-between; gap:10px; margin-top:16px; }
+  .note { margin-top:18px; color:var(--muted); font-size:.94rem; }
+  .daily-action { margin-top:22px; padding:16px; background:var(--soft); border-radius:14px; }
+  .daily-action strong { display:block; margin-bottom:5px; }
+  footer { text-align:center; color:var(--muted); font-size:.88rem; margin-top:22px; }
+  
+  @media(max-width:520px) { .wrap{padding:16px 10px 32px}.card{padding:16px}.days{gap:7px}.day{flex-basis:42px;min-width:42px;padding:8px 0} }
+  @media print {
+    body { background:#fff !important; color:#111 !important; }
+    .card { background:#fff !important; color:#111 !important; }
+    #title, #titleEn, #affirmation, #affirmationEn, #dayLabel, .daily-action, .daily-action strong, .daily-action span { color:#111 !important; background:#fff !important; }
+    header .sub, .progress-row, progress, .days, .actions, .nav, .note, footer, .font-controls { display:none !important; }
+    .wrap { max-width:none; padding:0; }
+    .card { border:0; box-shadow:none; padding:0; }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><button class="theme-toggle" id="themeBtn" type="button" aria-label="Ganti tema"><span id="themeIcon">☀️</span><span id="themeLabel">Mode terang</span></button></div>
+  <header>
+    <h1>30 Hari Afirmasi Diri</h1>
+    <p class="sub">Latihan harian untuk membangun kepercayaan diri, karier, kemampuan bahasa Inggris, keuangan, kesehatan, keluarga, dan kedekatan kepada Allah.</p>
+  </header>
+  <main class="card">
+    <div class="progress-row"><span>Perjalanan 30 hari</span><span id="progressText">0 dari 30 selesai</span></div>
+    <progress id="progress" max="30" value="0" aria-label="Progres afirmasi"></progress>
+    <div class="days" id="days" aria-label="Pilih hari afirmasi"></div>
+    <section aria-live="polite">
+      <div class="flex-between">
+        <div class="eyebrow" id="dayLabel">HARI 01</div>
+        <div class="font-controls">
+          <label for="fontSelect" style="font-size:0.8rem; color:var(--muted);">Gaya Tulisan:</label>
+          <select id="fontSelect" aria-label="Pilih gaya tulisan">
+            <option value="font-default">Standar</option>
+            <option value="font-caveat">Caveat (Tegak Bersambung)</option>
+            <option value="font-dancing">Dancing Script (Klasik)</option>
+            <option value="font-kalam">Kalam (Tulisan Tangan)</option>
+            <option value="font-indie">Indie Flower (Ceria)</option>
+          </select>
+        </div>
+      </div>
+      
+      <h2 id="title"></h2>
+      <h3 id="titleEn" class="en-text"></h3>
+      
+      <!-- Area teks yang font-nya bisa diubah -->
+      <div id="affirmation" class="font-default"></div>
+      <div id="affirmationEn" class="en-text font-default"></div>
+      
+      <div class="daily-action">
+        <strong>Tindakan nyata hari ini <span class="en-text" style="font-weight:normal">(Today's concrete action)</span></strong>
+        <span id="action"></span>
+        <span id="actionEn" class="en-text"></span>
+      </div>
+    </section>
+    
+    <div class="actions">
+      <button class="btn primary" id="markBtn">✓ Tandai sudah ditulis</button>
+      <button class="btn" id="copyBtn">📋 Salin</button>
+      <button class="btn" id="printBtn">🖨️ Cetak / PDF</button>
+      <button class="btn" id="resetBtn" title="Menghapus semua tanda progres">🔄 Reset</button>
+    </div>
+    
+    <div class="nav">
+      <button class="btn" id="prevBtn">← Sebelumnya</button>
+      <button class="btn" id="nextBtn">Berikutnya →</button>
+    </div>
+    
+    <p class="note">Progres disimpan di browser pada perangkat ini. Jika memakai mode privat atau menghapus data browser, progres mungkin hilang. Afirmasi adalah pengingat untuk bertindak, bukan jaminan hasil instan.</p>
+  </main>
+  <footer>Mulai kapan saja · Tulis dengan tangan · Lakukan satu tindakan nyata setiap hari</footer>
+</div>
+
+<script>
+// Format array: [Judul ID, Afirmasi ID, Tindakan ID, Judul EN, Afirmasi EN, Tindakan EN]
+const affirmations = [
+  [
+    "Saya percaya pada diri sendiri", 
+    "Saya adalah pribadi yang berharga. Saya percaya pada kemampuan diri saya. Saya tidak harus sempurna untuk memulai, dan saya tidak harus menjadi orang lain untuk berhasil.", 
+    "Tuliskan satu kemampuan diri yang Anda hargai.",
+    "I believe in myself",
+    "I am a valuable person. I believe in my abilities. I don't have to be perfect to start, and I don't have to be someone else to succeed.",
+    "Write down one of your abilities that you value."
+  ],
+  [
+    "Saya terus bertumbuh", 
+    "Setiap hari saya belajar sesuatu yang baru. Kesalahan bukan alasan untuk menyerah, melainkan kesempatan untuk menjadi lebih baik.", 
+    "Pelajari satu hal baru atau catat satu pelajaran hari ini.",
+    "I keep growing",
+    "Every day I learn something new. Mistakes are not a reason to give up, but an opportunity to become better.",
+    "Learn one new thing or write down one lesson today."
+  ],
+  [
+    "Saya berani melangkah", 
+    "Saya berani mencoba hal-hal baru meskipun masih merasa takut. Keberanian saya tumbuh setiap kali saya mengambil tindakan.", 
+    "Lakukan satu hal yang selama ini Anda tunda.",
+    "I dare to step forward",
+    "I dare to try new things even though I still feel afraid. My courage grows every time I take action.",
+    "Do one thing you have been putting off."
+  ],
+  [
+    "Saya mampu berbicara dengan percaya diri", 
+    "Saya belajar menyampaikan pikiran dengan tenang dan jelas. Pendapat saya berharga. Saya tidak perlu takut hanya karena orang lain memiliki jabatan lebih tinggi.", 
+    "Sampaikan satu pendapat dengan tenang dan jelas.",
+    "I am able to speak confidently",
+    "I am learning to express my thoughts calmly and clearly. My opinion is valuable. I don't need to be afraid just because someone else holds a higher position.",
+    "Express one opinion calmly and clearly."
+  ],
+  [
+    "Saya semakin mahir dalam bahasa Inggris", 
+    "Saya mampu meningkatkan kemampuan bahasa Inggris saya melalui latihan setiap hari. Saya berani berbicara meskipun belum sempurna. Setiap kalimat yang saya ucapkan membawa saya lebih dekat pada kefasihan.", 
+    "Ucapkan lima kalimat bahasa Inggris dengan suara lantang.",
+    "I am getting more fluent in English",
+    "I am able to improve my English skills through daily practice. I dare to speak even though it's not perfect yet. Every sentence I say brings me closer to fluency.",
+    "Say five English sentences out loud."
+  ],
+  [
+    "Saya memiliki kemampuan yang bernilai", 
+    "Pengalaman dan pengetahuan IT yang saya miliki adalah modal berharga. Saya terus meningkatkan keterampilan agar mampu memberikan manfaat yang lebih besar.", 
+    "Luangkan 15 menit untuk belajar keterampilan IT.",
+    "I have valuable skills",
+    "My IT experience and knowledge are valuable assets. I continue to improve my skills to be able to provide greater benefits.",
+    "Spend 15 minutes learning an IT skill."
+  ],
+  [
+    "Saya pantas berkembang dalam karier", 
+    "Saya sedang mempersiapkan diri menjadi pemimpin IT yang kompeten, bertanggung jawab, dan bijaksana. Saya membangun kemampuan saya melalui tindakan nyata setiap hari.", 
+    "Catat satu kemampuan yang perlu ditingkatkan untuk karier.",
+    "I deserve to grow in my career",
+    "I am preparing myself to become a competent, responsible, and wise IT leader. I build my skills through concrete actions every day.",
+    "Note one skill that needs improvement for your career."
+  ],
+  [
+    "Saya tenang menghadapi masalah", 
+    "Saya tidak harus panik ketika menghadapi masalah. Saya mampu berpikir jernih, mencari penyebab, menentukan solusi, dan belajar dari setiap kejadian.", 
+    "Hadapi satu masalah dengan menulis penyebab dan langkah solusi.",
+    "I am calm in facing problems",
+    "I don't have to panic when facing problems. I am able to think clearly, find the causes, determine solutions, and learn from every event.",
+    "Face one problem by writing down its cause and solution steps."
+  ],
+  [
+    "Saya menjadi komunikator yang baik", 
+    "Saya belajar mendengarkan sebelum menjawab, menjelaskan sebelum menyalahkan, dan menyampaikan pendapat dengan sopan serta tegas.", 
+    "Dengarkan orang lain sampai selesai sebelum merespons.",
+    "I am becoming a good communicator",
+    "I am learning to listen before answering, explain before blaming, and express opinions politely and firmly.",
+    "Listen to others until they finish before responding."
+  ],
+  [
+    "Saya menghargai proses", 
+    "Saya tidak membandingkan perjalanan hidup saya dengan orang lain. Saya fokus pada perkembangan diri sendiri dan terus melangkah sesuai kemampuan saya.", 
+    "Catat satu kemajuan kecil yang sudah Anda capai.",
+    "I value the process",
+    "I don't compare my life journey with others. I focus on my own personal growth and keep moving forward according to my abilities.",
+    "Note one small progress you have achieved."
+  ],
+  [
+    "Saya membangun kebiasaan yang baik", 
+    "Saya tidak menunggu motivasi untuk bertindak. Saya melatih disiplin melalui kebiasaan kecil yang saya lakukan secara konsisten.", 
+    "Selesaikan satu kebiasaan baik yang sudah Anda rencanakan.",
+    "I build good habits",
+    "I don't wait for motivation to act. I practice discipline through small habits that I do consistently.",
+    "Complete one good habit you have planned."
+  ],
+  [
+    "Saya bijak mengelola uang", 
+    "Saya belajar mengatur penghasilan dengan penuh tanggung jawab. Saya membedakan kebutuhan dan keinginan, mengendalikan pengeluaran, serta membangun masa depan finansial secara bertahap.", 
+    "Catat pengeluaran hari ini dan bedakan kebutuhan dengan keinginan.",
+    "I am wise in managing money",
+    "I am learning to manage my income responsibly. I distinguish between needs and wants, control expenses, and build my financial future gradually.",
+    "Note today's expenses and distinguish needs from wants."
+  ],
+  [
+    "Saya membuka peluang baru", 
+    "Saya memiliki kesempatan untuk mengembangkan keterampilan menjadi sumber penghasilan tambahan. Saya berani belajar, mencoba, dan memperbaiki hasil pekerjaan saya.", 
+    "Kembangkan satu ide produk digital atau jasa.",
+    "I open up new opportunities",
+    "I have the opportunity to develop my skills into an additional source of income. I dare to learn, try, and improve the results of my work.",
+    "Develop one digital product or service idea."
+  ],
+  [
+    "Saya membangun masa depan yang mandiri", 
+    "Saya tidak hanya bekerja untuk hari ini. Saya sedang membangun keterampilan, aset, dan sumber penghasilan yang dapat mendukung masa depan saya dan keluarga.", 
+    "Ambil satu langkah kecil untuk membangun aset atau penghasilan.",
+    "I am building an independent future",
+    "I don't just work for today. I am building skills, assets, and income sources that can support my future and my family's.",
+    "Take one small step to build an asset or income."
+  ],
+  [
+    "Saya pantas menerima hasil dari usaha", 
+    "Saya menghargai waktu, tenaga, dan kemampuan yang saya miliki. Saya belajar menawarkan nilai yang bermanfaat dan berani menghargai hasil pekerjaan saya secara layak.", 
+    "Perbaiki satu contoh hasil kerja atau portofolio.",
+    "I deserve the results of my efforts",
+    "I value my time, energy, and abilities. I learn to offer useful value and dare to value my work properly.",
+    "Improve one work sample or portfolio."
+  ],
+  [
+    "Saya menjaga kesehatan", 
+    "Tubuh saya membutuhkan perhatian dan perawatan. Saya memilih kebiasaan yang lebih sehat, bergerak secara teratur, makan dengan bijak, dan memberikan waktu untuk beristirahat.", 
+    "Pilih aktivitas sehat yang sesuai kondisi tubuh hari ini.",
+    "I take care of my health",
+    "My body needs attention and care. I choose healthier habits, move regularly, eat wisely, and give myself time to rest.",
+    "Choose a healthy activity that suits your body's condition today."
+  ],
+  [
+    "Saya kuat dan konsisten", 
+    "Saya tidak harus melakukan semuanya sekaligus. Langkah kecil yang saya lakukan secara konsisten akan membantu saya mencapai perubahan besar.", 
+    "Selesaikan satu tugas kecil sampai tuntas.",
+    "I am strong and consistent",
+    "I don't have to do everything at once. Small steps that I take consistently will help me achieve big changes.",
+    "Complete one small task until it's done."
+  ],
+  [
+    "Saya mengendalikan respons saya", 
+    "Saya tidak dapat mengendalikan semua keadaan, tetapi saya dapat memilih cara meresponsnya. Saya berusaha tetap tenang, sabar, dan berpikir jernih.", 
+    "Berhenti sejenak dan tarik napas sebelum merespons situasi sulit.",
+    "I control my responses",
+    "I cannot control all circumstances, but I can choose how to respond to them. I try to stay calm, patient, and think clearly.",
+    "Pause and take a breath before responding to a difficult situation."
+  ],
+  [
+    "Saya menjadi pribadi yang bermanfaat", 
+    "Saya menggunakan pengetahuan, waktu, dan kemampuan saya untuk membantu orang lain. Keberhasilan saya menjadi lebih bermakna ketika memberikan manfaat bagi sesama.", 
+    "Bantu seseorang melalui tindakan sederhana.",
+    "I am becoming a useful person",
+    "I use my knowledge, time, and abilities to help others. My success becomes more meaningful when it benefits others.",
+    "Help someone through a simple action."
+  ],
+  [
+    "Saya bertanggung jawab atas hidup saya", 
+    "Saya menerima bahwa masa depan dibangun melalui pilihan saya hari ini. Saya berhenti mencari alasan dan mulai berfokus pada hal-hal yang dapat saya perbaiki.", 
+    "Ambil tanggung jawab atas satu hal yang bisa Anda kendalikan.",
+    "I take responsibility for my life",
+    "I accept that the future is built through my choices today. I stop making excuses and start focusing on things I can improve.",
+    "Take responsibility for one thing you can control."
+  ],
+  [
+    "Saya membangun keluarga yang lebih baik", 
+    "Saya berusaha menjadi pasangan dan orang tua yang hadir, bertanggung jawab, sabar, dan penuh kasih sayang. Saya ingin keluarga saya merasakan manfaat dari pertumbuhan diri saya.", 
+    "Luangkan waktu berkualitas untuk keluarga.",
+    "I build a better family",
+    "I try to be a present, responsible, patient, and loving partner and parent. I want my family to feel the benefits of my personal growth.",
+    "Spend quality time with your family."
+  ],
+  [
+    "Saya tidak mudah menyerah", 
+    "Ketika hasil belum sesuai harapan, saya mengevaluasi langkah dan mencoba kembali. Kegagalan sementara tidak menentukan nilai diri maupun masa depan saya.", 
+    "Tinjau satu kendala dan tentukan langkah berikutnya.",
+    "I don't give up easily",
+    "When the results are not as expected, I evaluate my steps and try again. Temporary failure does not determine my self-worth or my future.",
+    "Review one obstacle and determine the next step."
+  ],
+  [
+    "Saya belajar memimpin", 
+    "Saya melatih diri untuk mengambil keputusan dengan bijaksana, bertanggung jawab atas pilihan saya, dan membantu orang lain berkembang bersama saya.", 
+    "Ambil inisiatif untuk menyelesaikan satu kebutuhan tim.",
+    "I am learning to lead",
+    "I train myself to make wise decisions, take responsibility for my choices, and help others grow with me.",
+    "Take the initiative to resolve one team need."
+  ],
+  [
+    "Saya berani menghadapi kesempatan", 
+    "Saya tidak membiarkan rasa takut membuat saya terus berada di tempat yang sama. Saya mempersiapkan diri dan berani mengambil peluang yang sesuai dengan kemampuan serta nilai hidup saya.", 
+    "Ambil satu langkah untuk peluang yang ingin Anda coba.",
+    "I dare to face opportunities",
+    "I don't let fear keep me in the same place. I prepare myself and dare to take opportunities that align with my abilities and life values.",
+    "Take one step towards an opportunity you want to try."
+  ],
+  [
+    "Saya menjaga pikiran dan perkataan", 
+    "Saya memilih kata-kata yang membangun, pikiran yang jernih, dan tindakan yang bermanfaat. Saya berbicara kepada diri sendiri dengan tegas sekaligus penuh penghargaan.", 
+    "Ganti satu kritik terhadap diri sendiri dengan kalimat yang membangun.",
+    "I guard my thoughts and words",
+    "I choose constructive words, clear thoughts, and useful actions. I speak to myself firmly and with appreciation.",
+    "Replace one self-criticism with a constructive sentence."
+  ],
+  [
+    "Saya bersyukur atas apa yang dimiliki", 
+    "Saya bersyukur atas kesehatan, pekerjaan, keluarga, pengalaman, dan kesempatan belajar. Saya tetap berusaha lebih baik tanpa melupakan nikmat yang telah Allah berikan.", 
+    "Tuliskan tiga hal yang Anda syukuri.",
+    "I am grateful for what I have",
+    "I am grateful for my health, work, family, experiences, and learning opportunities. I keep trying to be better without forgetting the blessings Allah has given.",
+    "Write down three things you are grateful for."
+  ],
+  [
+    "Saya berserah diri kepada Allah", 
+    "Saya berusaha sebaik mungkin, berdoa dengan sungguh-sungguh, dan menyerahkan hasilnya kepada Allah. Saya percaya bahwa setiap ujian dapat menjadi jalan untuk belajar dan memperbaiki diri.", 
+    "Luangkan waktu untuk berdoa dan menata niat.",
+    "I surrender to Allah",
+    "I try my best, pray earnestly, and leave the results to Allah. I believe that every test can be a way to learn and improve myself.",
+    "Take time to pray and set your intentions."
+  ],
+  [
+    "Saya membangun keberhasilan dengan cara yang baik", 
+    "Saya ingin berhasil tanpa mengorbankan kejujuran, kesehatan, keluarga, dan prinsip agama. Saya memilih jalan yang halal, bertanggung jawab, dan membawa manfaat.", 
+    "Pastikan satu keputusan hari ini selaras dengan nilai yang Anda pegang.",
+    "I build success in a good way",
+    "I want to succeed without sacrificing honesty, health, family, and religious principles. I choose a halal, responsible path that brings benefits.",
+    "Ensure one decision today aligns with your values."
+  ],
+  [
+    "Saya semakin dekat dengan tujuan", 
+    "Saya mungkin belum sampai pada semua impian saya, tetapi saya tidak lagi berada di titik yang sama. Setiap usaha yang konsisten membantu saya bergerak maju.", 
+    "Bandingkan kemajuan hari ini dengan diri Anda di masa lalu.",
+    "I am getting closer to my goals",
+    "I may not have reached all my dreams yet, but I am no longer in the same place. Every consistent effort helps me move forward.",
+    "Compare your progress today with your past self."
+  ],
+  [
+    "Saya siap menjalani babak baru", 
+    "Saya bangga karena telah berusaha selama 30 hari. Saya akan terus belajar, menjaga kesehatan, memperbaiki keuangan, mengembangkan karier, dan mendekatkan diri kepada Allah. Saya tidak berhenti di sini. Saya terus bertumbuh, satu hari demi satu hari.", 
+    "Pilih tiga kebiasaan dari 30 hari ini untuk diteruskan.",
+    "I am ready for a new chapter",
+    "I am proud of myself for trying for 30 days. I will continue to learn, take care of my health, improve my finances, develop my career, and draw closer to Allah. I do not stop here. I keep growing, day by day.",
+    "Choose three habits from these 30 days to continue."
+  ]
+];
+
+let selected = 0;
+let done = new Set();
+try { done = new Set(JSON.parse(localStorage.getItem("afirmasi30Done") || "[]")); } catch(e) {}
+const $ = id => document.getElementById(id);
+function save() { try { localStorage.setItem("afirmasi30Done", JSON.stringify([...done])); } catch(e) {} }
+
+// Pengaturan Tema
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  const isDark = theme === "dark";
+  $("themeIcon").textContent = isDark ? "☀️" : "🌙";
+  $("themeLabel").textContent = isDark ? "Mode terang" : "Mode gelap";
+  $("themeBtn").setAttribute("aria-label", isDark ? "Aktifkan tema terang" : "Aktifkan tema gelap");
+  try { localStorage.setItem("afirmasi30Theme", theme); } catch(e) {}
+}
+let currentTheme = "dark";
+try { currentTheme = localStorage.getItem("afirmasi30Theme") || "dark"; } catch(e) {}
+applyTheme(currentTheme);
+$("themeBtn").addEventListener("click", () => {
+  currentTheme = currentTheme === "dark" ? "light" : "dark";
+  applyTheme(currentTheme);
+});
+
+// Pengaturan Font
+const fontSelect = $("fontSelect");
+let currentFont = "font-default";
+try { currentFont = localStorage.getItem("afirmasi30Font") || "font-default"; } catch(e) {}
+fontSelect.value = currentFont;
+function applyFont() {
+  $("affirmation").className = fontSelect.value;
+  $("affirmationEn").className = "en-text " + fontSelect.value;
+  try { localStorage.setItem("afirmasi30Font", fontSelect.value); } catch(e) {}
+}
+fontSelect.addEventListener("change", applyFont);
+applyFont();
+
+// Inisialisasi Tombol Hari (Optimasi Performa DOM)
+function initDays() {
+  const daysContainer = $("days");
+  affirmations.forEach((a,i) => {
+    const b = document.createElement("button");
+    b.id = "dayBtn-" + i;
+    b.className = "day";
+    b.textContent = String(i+1).padStart(2,"0");
+    b.addEventListener("click", () => { selected=i; render(); });
+    daysContainer.appendChild(b);
+  });
+}
+initDays();
+
+// Fungsi Render Utama
+function render() {
+  affirmations.forEach((a,i) => {
+    const b = $("dayBtn-" + i);
+    if(b) {
+      b.className = "day" + (i===selected ? " active" : "") + (done.has(i) ? " done" : "");
+      b.setAttribute("aria-label", `Hari ${i+1}${done.has(i) ? ", selesai" : ""}`);
+    }
+  });
+
+  const activeDay = $("dayBtn-" + selected);
+  if (activeDay) activeDay.scrollIntoView({behavior:"smooth", block:"nearest", inline:"nearest"});
+  
+  const a = affirmations[selected];
+  $("dayLabel").textContent = "HARI " + String(selected+1).padStart(2,"0");
+  
+  // Teks Indonesia
+  $("title").textContent = a[0];
+  $("affirmation").textContent = a[1];
+  $("action").textContent = a[2];
+  
+  // Teks Inggris
+  $("titleEn").textContent = a[3];
+  $("affirmationEn").textContent = a[4];
+  $("actionEn").textContent = a[5];
+  
+  $("progress").value = done.size;
+  $("progressText").textContent = `${done.size} dari 30 selesai`;
+  
+  $("markBtn").textContent = done.has(selected) ? "✓ Sudah ditulis — batalkan" : "✓ Tandai sudah ditulis";
+  $("prevBtn").disabled = selected===0;
+  $("nextBtn").disabled = selected===29;
+}
+
+// Fitur Tombol
+$("markBtn").addEventListener("click", () => {
+  if(done.has(selected)) {
+    done.delete(selected);
+  } else {
+    done.add(selected);
+    if (typeof confetti === 'function') {
+      confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 }, colors: ['#67c58a', '#2f6b4f', '#ffffff'] });
+    }
+  }
+  save(); render();
+});
+
+$("prevBtn").addEventListener("click", () => { if(selected>0) selected--; render(); });
+$("nextBtn").addEventListener("click", () => { if(selected<29) selected++; render(); });
+
+$("copyBtn").addEventListener("click", async () => {
+  const a=affirmations[selected];
+  const content=`Afirmasi Hari ${selected+1}:\n${a[0]} / ${a[3]}\n\n${a[1]}\n${a[4]}\n\nTindakan nyata (Action): ${a[2]}\n${a[5]}`;
+  try { await navigator.clipboard.writeText(content); $("copyBtn").innerHTML="📋 Tersalin ✓"; setTimeout(()=>$("copyBtn").innerHTML="📋 Salin",1600); }
+  catch(e) { window.prompt("Salin teks berikut:", content); }
+});
+
+$("printBtn").addEventListener("click", () => window.print());
+
+$("resetBtn").addEventListener("click", () => {
+  if(confirm("Yakin ingin menghapus semua tanda progres 30 hari?")) { done.clear(); save(); render(); }
+});
+
+render();
+
+// Registrasi Service Worker untuk PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => console.log('Service Worker terdaftar!', reg.scope))
+      .catch(err => console.log('Pendaftaran Service Worker gagal:', err));
+  });
+}
+</script>
+</body>
+</html>
