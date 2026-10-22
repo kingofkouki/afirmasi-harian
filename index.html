@@ -2,14 +2,20 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<!-- viewport-fit=cover wajib untuk full screen menembus area poni HP -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>30 Hari Afirmasi Diri</title>
 
-<!-- Pengaturan PWA -->
+<!-- Pengaturan PWA & Full Screen iOS/Android -->
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="icon-192.png">
+
+<!-- Meta tag untuk warna status bar dinamis -->
+<meta name="theme-color" id="metaThemeColor" content="#000000">
+
+<!-- Mengaktifkan mode layar penuh di iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <!-- Mengimpor Google Fonts untuk Tulisan Tangan -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,29 +23,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Dancing+Script:wght@400..700&family=Indie+Flower&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
-  /* Palet Warna Khas iOS (Apple Design Guidelines) */
+  /* Palet Warna Khas iOS */
   :root[data-theme="light"] { 
     color-scheme: light; 
-    --bg: #f2f2f7;         /* iOS Grouped Background Light */
-    --card: #ffffff;       /* Pure White Card */
-    --ink: #000000;        /* Pure Black Text */
-    --muted: #8e8e93;      /* iOS System Gray */
-    --accent: #34c759;     /* iOS Green */
-    --line: #e5e5ea;       /* iOS Separator */
-    --soft: #e5f9e7;       /* Light Green Tint */
-    --button: #f2f2f7;     /* Button Background */
+    --bg: #f2f2f7;         
+    --card: #ffffff;       
+    --ink: #000000;        
+    --muted: #8e8e93;      
+    --accent: #34c759;     
+    --line: #e5e5ea;       
+    --soft: #e5f9e7;       
+    --button: #f2f2f7;     
     --shadow: 0 8px 30px rgba(0,0,0,0.04); 
   }
   :root { 
     color-scheme: dark; 
-    --bg: #000000;         /* Pure Black Background Dark */
-    --card: #1c1c1e;       /* iOS Grouped Background Dark */
-    --ink: #ffffff;        /* Pure White Text */
-    --muted: #8e8e93;      /* iOS System Gray */
-    --accent: #30d158;     /* iOS Green Dark Mode */
-    --line: #38383a;       /* iOS Separator Dark */
-    --soft: #243424;       /* Dark Green Tint */
-    --button: #2c2c2e;     /* Button Background Dark */
+    --bg: #000000;         
+    --card: #1c1c1e;       
+    --ink: #ffffff;        
+    --muted: #8e8e93;      
+    --accent: #30d158;     
+    --line: #38383a;       
+    --soft: #243424;       
+    --button: #2c2c2e;     
     --shadow: 0 8px 30px rgba(0,0,0,0.2); 
   }
   
@@ -47,7 +53,6 @@
   
   body, .card, .btn, section { transition: background-color 0.3s ease, color 0.3s ease; }
   
-  /* Tipografi San Francisco (Standar Apple) */
   body { 
     margin: 0; 
     background: var(--bg); 
@@ -56,13 +61,19 @@
     line-height: 1.5;
   }
   
-  .wrap { max-width: 600px; margin: 0 auto; padding: 20px 16px 48px; }
+  /* Area wrapper ditambahkan env(safe-area-inset-bottom) */
+  .wrap { 
+    max-width: 600px; 
+    margin: 0 auto; 
+    padding: 0 16px calc(48px + env(safe-area-inset-bottom)); 
+  }
   
-  header { text-align: center; padding: 10px 0 24px; }
-  h1 { font-size: clamp(1.8rem, 5vw, 2.2rem); font-weight: 700; letter-spacing: -0.5px; margin: 0 0 8px; }
-  .sub { color: var(--muted); font-size: 0.95rem; margin: 0; }
-  
-  .topbar { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+  /* Topbar ditambahkan env(safe-area-inset-top) agar aman dari poni */
+  .topbar { 
+    display: flex; justify-content: flex-end; 
+    padding-top: calc(20px + env(safe-area-inset-top));
+    margin-bottom: 16px; 
+  }
   .theme-toggle { 
     display: inline-flex; align-items: center; gap: 6px; 
     background: var(--button); color: var(--ink); 
@@ -70,7 +81,10 @@
     cursor: pointer; font: inherit; font-size: 0.9rem; font-weight: 600; 
   }
   
-  /* Card dengan gaya iOS */
+  header { text-align: center; padding: 10px 0 24px; }
+  h1 { font-size: clamp(1.8rem, 5vw, 2.2rem); font-weight: 700; letter-spacing: -0.5px; margin: 0 0 8px; }
+  .sub { color: var(--muted); font-size: 0.95rem; margin: 0; }
+  
   .card { 
     background: var(--card); 
     border-radius: 24px; 
@@ -80,7 +94,6 @@
   
   .progress-row { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; color: var(--muted); }
   
-  /* Progress Bar ala iOS */
   progress { 
     width: 100%; height: 6px; border-radius: 10px; border: none; background: var(--line); overflow: hidden;
   }
@@ -88,7 +101,6 @@
   progress::-webkit-progress-value { background-color: var(--accent); border-radius: 10px; transition: width 0.4s ease; }
   progress::-moz-progress-bar { background-color: var(--accent); border-radius: 10px; }
   
-  /* Pemilihan Hari bergaya Kalender iOS */
   .days { 
     display: flex; gap: 12px; margin: 24px 0; padding: 4px 2px 12px; 
     overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; 
@@ -119,7 +131,6 @@
   
   h2 { margin: 0 0 4px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
   h3.en-text { font-size: 1.1rem; font-weight: 400; margin: 0 0 16px; opacity: 0.8; }
-  
   .en-text { color: var(--muted); }
   
   #affirmation, #affirmationEn { white-space: pre-line; transition: font-size 0.3s, font-family 0.3s; }
@@ -136,7 +147,6 @@
   .actions-row { display: flex; gap: 10px; }
   .actions-row .btn { flex: 1; justify-content: center; }
   
-  /* Tombol ala iOS */
   .btn { 
     border: none; border-radius: 14px; padding: 14px 16px; 
     cursor: pointer; font: inherit; font-size: 1rem; font-weight: 600; 
@@ -156,16 +166,6 @@
   
   footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 32px; line-height: 1.6; }
   .creator-text { font-weight: 600; color: var(--ink); margin-top: 8px; display: block; opacity: 0.7; }
-  
-  @media(max-width: 400px) { .card { padding: 20px 16px; border-radius: 20px; } }
-  
-  @media print {
-    body, .card { background: #fff !important; color: #000 !important; }
-    header .sub, .progress-row, progress, .days, .actions, .nav, footer, .font-controls, .topbar { display: none !important; }
-    .wrap { max-width: none; padding: 0; }
-    .card { border-radius: 0; box-shadow: none; padding: 0; }
-    .en-text { color: #555 !important; }
-  }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
@@ -278,12 +278,18 @@ try { done = new Set(JSON.parse(localStorage.getItem("afirmasi30Done") || "[]"))
 const $ = id => document.getElementById(id);
 function save() { try { localStorage.setItem("afirmasi30Done", JSON.stringify([...done])); } catch(e) {} }
 
-// Pengaturan Tema iOS Style
+// Pengaturan Tema & Warna Status Bar Dinamis
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   const isDark = theme === "dark";
   $("themeIcon").textContent = isDark ? "☀️" : "🌙";
   $("themeLabel").textContent = isDark ? "Light" : "Dark";
+  
+  const metaThemeColor = document.getElementById("metaThemeColor");
+  if (metaThemeColor) {
+    metaThemeColor.content = isDark ? "#000000" : "#f2f2f7";
+  }
+
   try { localStorage.setItem("afirmasi30Theme", theme); } catch(e) {}
 }
 let currentTheme = "dark";
@@ -387,6 +393,7 @@ $("printBtn").addEventListener("click", () => window.print());
 
 render();
 
+// Registrasi Service Worker PWA
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(() => {});
