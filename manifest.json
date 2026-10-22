@@ -1,11 +1,11 @@
 {
   "name": "30 Hari Afirmasi Diri",
   "short_name": "Afirmasi",
-  "description": "Latihan harian untuk membangun kepercayaan diri dan kebiasaan baik.",
-  "start_url": "./index.html",
+  "description": "30 Hari Membangun Kebiasaan Positif",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#101512",
-  "theme_color": "#67c58a",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "icon-192.png",
